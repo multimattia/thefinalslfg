@@ -48,11 +48,5 @@ export default async function DiscordAuth() {
         sign in with discord
       </button>
     </form>
-    // <Link
-    //   href="/loginWithDiscord"
-    //   className="flex rounded-md bg-btn-background px-3 py-2 no-underline hover:bg-btn-background-hover"
-    // >
-    //   Login
-    // </Link>
   );
 }
