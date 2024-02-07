@@ -3,6 +3,10 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+const authCallbackURL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}/auth/callback`
+  : "http://localhost:3000/auth/callback";
+
 export default async function DiscordAuth() {
   "use server";
   const cookieStore = cookies();
@@ -39,7 +43,7 @@ export default async function DiscordAuth() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "discord",
       options: {
-        redirectTo: process.env.NEXT_PUBLIC_CALLBACK_URL,
+        redirectTo: authCallbackURL,
       },
     });
     if (error) {
