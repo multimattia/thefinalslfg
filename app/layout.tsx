@@ -22,6 +22,7 @@ export default function RootLayout({
         <main className="flex min-h-screen flex-col items-center">
           {children}
         </main>
+        <p>{defaultUrl}</p>
       </body>
     </html>
   );
