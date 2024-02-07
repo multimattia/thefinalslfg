@@ -52,6 +52,18 @@ export default async function DiscordAuth() {
     return redirect(data.url!);
   };
 
+  const getURL = () => {
+    let url =
+      process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
+      process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically Set by Vercel.
+      "http://localhost:3000/";
+    // Make sure to include `https://` when not localhost.
+    url = url.includes("http") ? url : `https://${url}`;
+    // Make sure to include a trailing `/`.
+    url = url.charAt(url.length - 1) === "/" ? url : `${url}/`;
+    return url.concat("", "auth/callback");
+  };
+
   return user ? (
     <div className="flex items-center gap-4">
       Hey, {user.user_metadata.name}!
@@ -66,8 +78,9 @@ export default async function DiscordAuth() {
       <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
         Sign in with Discord
       </button>
-      <p>{process?.env?.NEXT_PUBLIC_VERCEL_URL}</p>
-      <p>{process?.env?.NEXT_PUBLIC_SITE_URL}</p>
+      <p>vercel_url: {process?.env?.NEXT_PUBLIC_VERCEL_URL}</p>
+      <p>site_url: {process?.env?.NEXT_PUBLIC_SITE_URL}</p>
+      <p>geturl: {getURL()}</p>
     </form>
   );
 }
