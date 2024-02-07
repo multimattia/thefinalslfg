@@ -8,5 +8,5 @@ export default async function Page() {
   const { data: users } = await supabase.from("users").select();
   console.log(users);
 
-  return <pre>{JSON.stringify(users, null, 2)}</pre>;
+  return <h1>test</h1>;
 }
