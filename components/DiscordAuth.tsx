@@ -1,11 +1,23 @@
 import { createClient } from "@/utils/supabase/server";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function DiscordAuth() {
+  "use server";
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
 
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+      },
+    },
+  );
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -16,26 +28,29 @@ export default async function DiscordAuth() {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     await supabase.auth.signOut();
-    return redirect("/login");
+    return redirect("/");
   };
 
   const signIn = async () => {
     "use server";
 
-    console.log("Getting cookies...");
     const cookieStore = cookies();
-    console.log("creating supabase client...");
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "discord",
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_CALLBACK_URL,
+      },
     });
-    console.log(data);
+    if (error) {
+      console.error(error);
+    }
     return redirect(data.url!);
   };
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
+      Hey, {user.user_metadata.name}!
       <form action={signOut}>
         <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
           Logout
@@ -45,7 +60,7 @@ export default async function DiscordAuth() {
   ) : (
     <form action={signIn}>
       <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
-        sign in with discord
+        Sign in with Discord
       </button>
     </form>
   );
