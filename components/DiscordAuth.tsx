@@ -2,10 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const authCallbackURL = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}/auth/callback`
-  : "http://localhost:3000/auth/callback";
-
 export default async function DiscordAuth() {
   "use server";
   const cookieStore = cookies();
