@@ -24,10 +24,10 @@ export default async function DiscordAuth() {
     "use server";
     const getURL = () => {
       let url = "";
-      if (process?.env?.NEXT_PUBLIC_VERCEL_URL) {
-        url = `${process?.env?.NEXT_PUBLIC_VERCEL_URL}/auth/callback`;
-      } else if (process?.env?.NEXT_PUBLIC_SITE_URL) {
+      if (process?.env?.NEXT_PUBLIC_SITE_URL) {
         url = `${process?.env?.NEXT_PUBLIC_SITE_URL}/auth/callback`;
+      } else if (process?.env?.NEXT_PUBLIC_VERCEL_URL) {
+        url = `${process?.env?.NEXT_PUBLIC_VERCEL_URL}/auth/callback`;
       } else {
         url = "http://localhost:3000/auth/callback";
       }
