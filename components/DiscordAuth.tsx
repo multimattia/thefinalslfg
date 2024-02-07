@@ -60,14 +60,14 @@ export default async function DiscordAuth() {
           Logout
         </button>
       </form>
-      <p>{process?.env?.NEXT_PUBLIC_VERCEL_URL}</p>
-      <p>{process?.env?.NEXT_PUBLIC_SITE_URL}</p>
     </div>
   ) : (
     <form action={signIn}>
       <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
         Sign in with Discord
       </button>
+      <p>{process?.env?.NEXT_PUBLIC_VERCEL_URL}</p>
+      <p>{process?.env?.NEXT_PUBLIC_SITE_URL}</p>
     </form>
   );
 }
