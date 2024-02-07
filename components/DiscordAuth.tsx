@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -11,17 +10,7 @@ export default async function DiscordAuth() {
   "use server";
   const cookieStore = cookies();
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-      },
-    },
-  );
+  const supabase = createClient(cookieStore);
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -71,6 +60,8 @@ export default async function DiscordAuth() {
           Logout
         </button>
       </form>
+      <p>{process?.env?.NEXT_PUBLIC_VERCEL_URL}</p>
+      <p>{process?.env?.NEXT_PUBLIC_SITE_URL}</p>
     </div>
   ) : (
     <form action={signIn}>
