@@ -25,6 +25,7 @@ export default function Home() {
               priority
             />
           </a>
+          <p>This is a test for the google fonts installation.</p>
         </div>
       </div>
 
