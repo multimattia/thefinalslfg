@@ -23,9 +23,14 @@ export default async function DiscordAuth() {
   const signIn = async () => {
     "use server";
     const getURL = () => {
-      let url =
-        process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
-        "http://localhost:3000/auth/callback";
+      let url = "";
+      if (process?.env?.NEXT_PUBLIC_VERCEL_URL) {
+        url = `${process?.env?.NEXT_PUBLIC_VERCEL_URL}/auth/callback`;
+      } else if (process?.env?.NEXT_PUBLIC_SITE_URL) {
+        url = `${process?.env?.NEXT_PUBLIC_SITE_URL}/auth/callback`;
+      } else {
+        url = "http://localhost:3000/auth/callback";
+      }
       // Make sure to include `https://` when not localhost.
       url = url.includes("http") ? url : `https://${url}`;
       // Make sure to include a trailing `/`.
