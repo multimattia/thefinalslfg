@@ -42,7 +42,7 @@ export default function RootLayout({
               </div>
             </nav>
           </div>
-          {children}
+          <div className="flex-1">{children}</div>
         </main>
       </body>
     </html>

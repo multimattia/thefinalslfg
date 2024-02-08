@@ -3,12 +3,18 @@ import { cookies } from "next/headers";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 
-export default function Page() {
+const cookieStore = cookies();
+const supabase = createClient(cookieStore);
+
+export default async function Page() {
+  "use server";
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   // function to be called when form is submitted
   async function addUser(formData: FormData) {
     "use server";
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
 
     const {
       data: { user },
@@ -30,7 +36,7 @@ export default function Page() {
     return redirect("/users");
   }
 
-  return (
+  return user ? (
     <>
       <form action={addUser} className="inline-flex flex-auto flex-col">
         <label htmlFor="embarkId">Embark ID</label>
@@ -41,6 +47,10 @@ export default function Page() {
 
         <Button type="submit">add</Button>
       </form>
+    </>
+  ) : (
+    <>
+      <h1>Please sign in through discord to create posts</h1>
     </>
   );
 }
