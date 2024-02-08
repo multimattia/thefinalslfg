@@ -20,7 +20,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-saira)"],
-        // heavy: ["var(--font-poppins)"],
+        heavy: ["var(--font-poppins)"],
       },
       colors: {
         border: "hsl(var(--border))",

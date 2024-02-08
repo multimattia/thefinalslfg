@@ -32,13 +32,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(`font-sans antialiased ${saira.variable}`)}>
+    <html
+      lang="en"
+      className={cn(
+        `font-sans antialiased ${saira.variable} ${poppins.variable}`,
+      )}
+    >
       <body className="bg-background text-foreground">
         <main className="flex min-h-screen flex-col items-center">
           <div className="flex w-full flex-1 flex-col items-center gap-20">
             <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
               <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-                <p className="font-sans">THE FINALS LFG</p>
+                <p className="font-heavy">THE FINALS LFG</p>
                 <DiscordAuth />
               </div>
             </nav>
