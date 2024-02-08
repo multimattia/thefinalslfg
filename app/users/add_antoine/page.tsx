@@ -15,14 +15,13 @@ export default function Page() {
     } = await supabase.auth.getUser();
 
     const rawFormData = {
-      discordName: formData.get("discordName"),
       embarkId: formData.get("embarkId"),
       playerRank: formData.get("playerRank"),
     };
 
     // insert form data into supabase
     const { error } = await supabase.from("users").insert({
-      discord_name: rawFormData.discordName,
+      discord_name: user?.user_metadata.full_name,
       embark_id: rawFormData.embarkId,
       rank: rawFormData.playerRank,
       user_id: user?.id,
@@ -34,9 +33,6 @@ export default function Page() {
   return (
     <>
       <form action={addUser} className="inline-flex flex-auto flex-col">
-        <label htmlFor="discordName">Discord name</label>
-        <input name="discordName" type="text" className="border-2" />
-
         <label htmlFor="embarkId">Embark ID</label>
         <input name="embarkId" type="text" className="border-2" />
 
