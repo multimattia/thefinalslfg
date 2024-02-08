@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 export default async function DiscordAuth() {
   "use server";
@@ -54,12 +55,19 @@ export default async function DiscordAuth() {
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.user_metadata.name}!
       <form action={signOut}>
         <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
           Logout
         </button>
       </form>
+      {user.user_metadata.full_name}
+      <Image
+        className="rounded-full"
+        src={user.user_metadata.picture}
+        width={35}
+        height={35}
+        alt="Picture of the current user taken from Discord"
+      />
     </div>
   ) : (
     <form action={signIn}>
