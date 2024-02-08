@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 export default async function Page() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
+  
   const { data: users } = await supabase.from("users").select();
 
   return (
