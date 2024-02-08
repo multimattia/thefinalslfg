@@ -1,6 +1,7 @@
-import { Poppins, Saira } from "next/font/google";
-import DiscordAuth from "@/components/DiscordAuth";
 import "./globals.css";
+import { Poppins, Saira } from "next/font/google";
+import { cn } from "../lib/utils";
+import DiscordAuth from "@/components/DiscordAuth";
 
 const saira = Saira({
   subsets: ["latin"],
@@ -31,13 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${saira.variable} ${poppins.variable}`}>
+    <html lang="en" className={cn(`font-sans antialiased ${saira.variable}`)}>
       <body className="bg-background text-foreground">
         <main className="flex min-h-screen flex-col items-center">
           <div className="flex w-full flex-1 flex-col items-center gap-20">
             <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
               <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-                <p className="font-heavy">THE FINALS LFG</p>
+                <p className="font-sans">THE FINALS LFG</p>
                 <DiscordAuth />
               </div>
             </nav>

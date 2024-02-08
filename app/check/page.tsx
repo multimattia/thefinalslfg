@@ -8,9 +8,8 @@ export default async function Page() {
   const { data: users } = await supabase.from("users").select();
 
   return (
-    <>
-      <Button>button </Button>
-      <pre>{JSON.stringify(users, null, 2)}</pre>
-    </>
+    <div className="flex-auto">
+      <Button className="">button </Button>
+    </div>
   );
 }
