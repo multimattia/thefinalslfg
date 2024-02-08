@@ -1,5 +1,19 @@
-import { GeistSans } from "geist/font/sans";
+import { Poppins, Saira } from "next/font/google";
+import DiscordAuth from "@/components/DiscordAuth";
 import "./globals.css";
+
+const saira = Saira({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-saira",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "600",
+  variable: "--font-poppins",
+});
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -17,9 +31,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" className={`${saira.variable} ${poppins.variable}`}>
       <body className="bg-background text-foreground">
-        <main className="min-h-screen flex flex-col items-center">
+        <main className="flex min-h-screen flex-col items-center">
+          <div className="flex w-full flex-1 flex-col items-center gap-20">
+            <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
+              <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
+                <p className="font-heavy">THE FINALS LFG</p>
+                <DiscordAuth />
+              </div>
+            </nav>
+          </div>
           {children}
         </main>
       </body>
