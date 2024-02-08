@@ -56,14 +56,14 @@ export default async function DiscordAuth() {
     <div className="flex items-center gap-4">
       Hey, {user.user_metadata.name}!
       <form action={signOut}>
-        <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
+        <button className="rounded-md bg-btn-background px-4 py-2 font-sans no-underline hover:bg-btn-background-hover">
           Logout
         </button>
       </form>
     </div>
   ) : (
     <form action={signIn}>
-      <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
+      <button className="rounded-md bg-btn-background px-4 py-2 font-sans no-underline hover:bg-btn-background-hover">
         Sign in with Discord
       </button>
     </form>
