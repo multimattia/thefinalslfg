@@ -1,4 +1,5 @@
 import { Poppins, Saira } from "next/font/google";
+import Link from "next/link";
 import DiscordAuth from "@/components/DiscordAuth";
 import "./globals.css";
 
@@ -37,12 +38,17 @@ export default function RootLayout({
           <div className="flex w-full flex-1 flex-col items-center gap-20">
             <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
               <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-                <p className="font-heavy">THE FINALS LFG</p>
+                <Link href="/" className="font-heavy text-2xl">
+                  THE FINALS LFG
+                </Link>
+                <Link href="/matt" className="font-sans ">
+                  Matt's form
+                </Link>
                 <DiscordAuth />
               </div>
             </nav>
           </div>
-          {children}
+          <div className="flex-1">{children}</div>
         </main>
       </body>
     </html>

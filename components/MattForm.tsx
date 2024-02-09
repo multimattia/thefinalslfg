@@ -22,100 +22,59 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
-
-const formSchema = z.object({
-  embarkUsername: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username cannot be more than 30 characters.",
-    }),
-  discordUsername: z
-    .string()
-    .min(3, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username cannot be more than 30 characters.",
-    }),
-  email: z
-    .string()
-    .min(3, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username cannot be more than 30 characters.",
-    }),
-  rank: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username cannot be more than 30 characters.",
-    }),
-  region: z
-    .string()
-    .min(2, {
-      message: "Region must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Region cannot be more than 30 characters.",
-    }),
-  platform: z
-    .string()
-    .array()
-    .min(2, {
-      message: "Region must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Region cannot be more than 30 characters.",
-    }),
-});
-
-const possiblePlatforms = [
-  {
-    value: "PlayStation",
-    label: "PlayStation",
-  },
-  {
-    value: "Steam",
-    label: "Steam",
-  },
-  {
-    value: "Xbox",
-    label: "Xbox",
-  },
-];
+import {
+  RANKS,
+  REGIONS,
+  PLATFORMS,
+  possiblePlatforms,
+  FormDataSchema,
+} from "@/lib/formschema";
+import { addListing } from "@/app/api/form/_actions";
 
 export default function ProfileForm(userData: {
   discordName: string;
   session: string;
 }) {
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof FormDataSchema>>({
+    resolver: zodResolver(FormDataSchema),
     defaultValues: {
       embarkUsername: "",
       discordUsername: userData.discordName,
-      platform: ["Steam"],
+      platform: [PLATFORMS[0]], // Must have default value or multiselect component will break :(
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  type Inputs = z.infer<typeof FormDataSchema>;
+
+  const {
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: zodResolver(FormDataSchema),
+  });
+
+  const processForm: SubmitHandler<Inputs> = async (data) => {
+    const result = await addListing(data);
+
+    if (!result) {
+      console.log("Something went wrong");
+      return;
+    }
+
+    if (result.error) {
+      console.log(result.error);
+      return;
+    }
+
+    reset();
+    // setData(result.data);
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(processForm)} className="space-y-4">
         <FormField
           control={form.control}
           name="embarkUsername"
@@ -140,7 +99,8 @@ export default function ProfileForm(userData: {
                 <Input placeholder="TheFinals" {...field} />
               </FormControl>
               <FormDescription>
-                This is your Discord username. We've prefilled this for you!
+                This is your Discord username. If you're signed in, we've
+                prefilled this for you!
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -175,12 +135,11 @@ export default function ProfileForm(userData: {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Bronze">Bronze</SelectItem>
-                  <SelectItem value="Silver">Silver</SelectItem>
-                  <SelectItem value="Gold">Gold</SelectItem>
-                  <SelectItem value="Platinum">Platinum</SelectItem>
-                  <SelectItem value="Diamond">Diamond</SelectItem>
-                  <SelectItem value="N/A">N/A</SelectItem>
+                  {RANKS.map((rank) => (
+                    <SelectItem key={rank} value={rank}>
+                      {rank}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -200,11 +159,11 @@ export default function ProfileForm(userData: {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Africa">Africa</SelectItem>
-                  <SelectItem value="Asia">Asia</SelectItem>
-                  <SelectItem value="Europe">Europe</SelectItem>
-                  <SelectItem value="North America">North America</SelectItem>
-                  <SelectItem value="South America">South America</SelectItem>
+                  {REGIONS.map((region) => (
+                    <SelectItem key={region} value={region}>
+                      {region}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
