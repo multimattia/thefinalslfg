@@ -27,6 +27,7 @@ export async function addListing(data: Inputs) {
         embark_id: data.embarkUsername,
         rank: data.rank,
         platforms: data.platform,
+        region: data.region,
         user_id: user?.id,
       });
       console.log(error);
