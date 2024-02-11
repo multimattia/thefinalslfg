@@ -50,6 +50,9 @@ export default function RootLayout({
                 <Link href="/matt" className="font-sans ">
                   Matt's form
                 </Link>
+                <Link href="/danny" className="font-sans ">
+                  danny's page
+                </Link>
                 <DiscordAuth />
               </div>
             </nav>
