@@ -22,7 +22,7 @@ export async function addListing(data: Inputs) {
     //check if user is logged in
     if (user) {
       // insert form data into supabase and redirect user
-      const { error } = await supabase.from("users").insert({
+      const { error } = await supabase.from("posts").insert({
         discord_name: data.discordUsername,
         embark_id: data.embarkUsername,
         rank: data.rank,
