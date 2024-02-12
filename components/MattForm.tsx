@@ -69,7 +69,6 @@ export default function ProfileForm(userData: {
     }
 
     reset();
-    // setData(result.data);
   };
 
   return (
