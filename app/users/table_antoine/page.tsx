@@ -11,7 +11,7 @@ export default async function Page() {
   return (
     <>
       <FilterForm />
-      <pre>{JSON.stringify(users, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(users, null, 2)}</pre> */}
     </>
   );
 }

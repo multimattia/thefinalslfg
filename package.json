@@ -24,7 +24,6 @@
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
     "geist": "^1.2.1",
-    "js-cookie": "^3.0.5",
     "lucide-react": "^0.323.0",
     "next": "latest",
     "postcss": "8.4.33",

@@ -4,9 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FilterSchema } from "@/lib/filterschema";
-import { addFilter } from "./_actions";
-
-import Cookies from "js-cookie";
+import { addFilter, initialList } from "./_actions";
+import { useEffect, useState } from "react";
 
 const formFields = [
   {
@@ -94,15 +93,33 @@ const formFields = [
 type Inputs = z.infer<typeof FilterSchema>;
 
 export default function CheckboxReactHookFormMultiple() {
+  const [data, setData] = useState<Record<string, any> | null>(null);
+
   const { register, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(FilterSchema),
   });
 
-  const processForm: SubmitHandler<Inputs> = async (data) => {
-    Cookies.set("myCookie", "Hello World!");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const users = await initialList();
+        // console.log(users.data);
+        setData(users.data);
+      } catch (error) {
+        console.error("error fetch data", error);
+      }
+    };
 
+    fetchData();
+  }, []);
+
+  const processForm: SubmitHandler<Inputs> = async (data) => {
     const result = await addFilter(data);
   };
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <>
@@ -130,6 +147,17 @@ export default function CheckboxReactHookFormMultiple() {
           Submit
         </button>
       </form>
+      <div>
+        {data.map((object) => (
+          <>
+            <p>Discord name: {object.discord_name}</p>
+            <p>Embark ID: {object.embark_id}</p>
+            <p>Rank: {object.rank}</p>
+            <p>Platform: {object.platforms}</p>
+            <p> ------ </p>
+          </>
+        ))}
+      </div>
     </>
   );
 }
