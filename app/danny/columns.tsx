@@ -8,18 +8,18 @@ import { Button } from "@/components/ui/button"
 // You can use a Zod schema here if you want.
 export type Post = {
   id: BigInteger
-  discordName: string
-  embarkId: string
-  platform: string[]
+  discord_name: string
+  embark_id: string
+  platforms: string[]
   region: string
-  class: string
+  class: string[]
   rank: string
   notes: string
 }
 
 export const columns: ColumnDef<Post>[] = [
   {
-    accessorKey: "discordName",
+    accessorKey: "discord_name",
     header: ({ column }) => {
       return (
         <Button
@@ -33,7 +33,7 @@ export const columns: ColumnDef<Post>[] = [
     },
   },
   {
-    accessorKey: "embarkId",
+    accessorKey: "embark_id",
     header: ({ column }) => {
       return (
         <Button
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Post>[] = [
     },
   },
   {
-    accessorKey: "platform",
+    accessorKey: "platforms",
     header: ({ column }) => {
       return (
         <Button

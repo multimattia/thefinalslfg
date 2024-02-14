@@ -36,7 +36,9 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    []
+  )
 
   const table = useReactTable({
     data,
@@ -49,49 +51,51 @@ export function DataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     }
   })
 
   return (
     <div>  
       <div className="flex items-center py-4 justify-center">
-        <Input 
+        <Input
+          type="text"
           placeholder="Filter Names"
-          value={(table.getColumn('discordName')?.getFilterValue() as string) ?? ""}
-          onChange={(e) => {
-            table.getColumn('discordName')?.setFilterValue(e.target.value)
+          value={(table.getColumn('discord_name')?.getFilterValue() as string) ?? ""}
+          onChange={(event) => {
+            table.getColumn('discord_name')?.setFilterValue(event.target.value)
           }}
           className="max-w-sm"
         />
         <Input 
           placeholder="Filter Platform"
-          value={(table.getColumn('platform')?.getFilterValue() as string) ?? ""}
-          onChange={(e) => {
-            table.getColumn('platform')?.setFilterValue(e.target.value)
+          value={(table.getColumn('platforms')?.getFilterValue() as string) ?? ""}
+          onChange={(event) => {
+            table.getColumn('platforms')?.setFilterValue(event.target.value)
           }}
           className="max-w-sm"
         />
         <Input 
           placeholder="Filter Region"
           value={(table.getColumn('region')?.getFilterValue() as string) ?? ""}
-          onChange={(e) => {
-            table.getColumn('region')?.setFilterValue(e.target.value)
+          onChange={(event) => {
+            table.getColumn('region')?.setFilterValue(event.target.value)
           }}
           className="max-w-sm"
         />
         <Input 
           placeholder="Filter Class"
           value={(table.getColumn('class')?.getFilterValue() as string) ?? ""}
-          onChange={(e) => {
-            table.getColumn('class')?.setFilterValue(e.target.value)
+          onChange={(event) => {
+            table.getColumn('class')?.setFilterValue(event.target.value)
           }}
           className="max-w-sm"
         />
         <Input 
           placeholder="Filter Rank"
           value={(table.getColumn('rank')?.getFilterValue() as string) ?? ""}
-          onChange={(e) => {
-            table.getColumn('rank')?.setFilterValue(e.target.value)
+          onChange={(event) => {
+            table.getColumn('rank')?.setFilterValue(event.target.value)
           }}
           className="max-w-sm"
         />
