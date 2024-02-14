@@ -1,9 +1,8 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { MultiSelect } from "./ui/multiselect";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
+import { MultiSelect } from './ui/multiselect'
 import {
   Form,
   FormControl,
@@ -12,64 +11,64 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
-import { useForm, SubmitHandler } from "react-hook-form";
-import { z } from "zod";
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { z } from 'zod'
 import {
   RANKS,
   REGIONS,
   PLATFORMS,
   possiblePlatforms,
   FormDataSchema,
-} from "@/lib/formschema";
-import { addListing } from "@/app/api/form/_actions";
+} from '@/lib/formschema'
+import { addListing } from '@/app/api/form/_actions'
 
 export default function ProfileForm(userData: {
-  discordName: string;
-  session: string;
+  discordName: string
+  session: string
 }) {
   const form = useForm<z.infer<typeof FormDataSchema>>({
     resolver: zodResolver(FormDataSchema),
     defaultValues: {
-      embarkUsername: "",
+      embarkUsername: '',
       discordUsername: userData.discordName,
       platform: [PLATFORMS[0]], // Must have default value or multiselect component will break :(
     },
-  });
+  })
 
-  type Inputs = z.infer<typeof FormDataSchema>;
+  type Inputs = z.infer<typeof FormDataSchema>
 
   const {
     reset,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
-  });
+  })
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    const result = await addListing(data);
+    const result = await addListing(data)
 
     if (!result) {
-      console.log("Something went wrong");
-      return;
+      console.log('Something went wrong')
+      return
     }
 
     if (result.error) {
-      console.log(result.error);
-      return;
+      console.log(result.error)
+      return
     }
 
-    reset();
-  };
+    reset()
+  }
 
   return (
     <Form {...form}>
@@ -172,5 +171,5 @@ export default function ProfileForm(userData: {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  );
+  )
 }

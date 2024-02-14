@@ -2,10 +2,16 @@
 
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
+import { useSearchParams } from "next/navigation";
+
+import { useState } from "react";
 
 import {
   Table,
@@ -16,6 +22,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { Input } from "@/components/ui/input";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -25,14 +33,37 @@ export default function MattTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [globalFilter, setGlobalFilter] = useState("");
   const table = useReactTable({
     data,
     columns,
+    defaultColumn: {
+      size: 200, //starting column size
+      minSize: 50, //enforced during column resizing
+      maxSize: 500, //enforced during column resizing
+    },
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    enableGlobalFilter: true,
+    manualPagination: true,
+    state: {
+      globalFilter: globalFilter,
+    },
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="min-h-fit min-w-full rounded-md border">
+      <div className="mx-5 flex items-center py-4">
+        <Input
+          placeholder="Search..."
+          value={(globalFilter as string) ?? ""}
+          onChange={(event) => {
+            table.setGlobalFilter(event.target.value);
+          }}
+          className="max-w-sm"
+        />
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
