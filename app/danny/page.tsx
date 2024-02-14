@@ -1,10 +1,10 @@
-'use client'
 
-import { Combobox } from "@/components/ui/combobox";
+import { Combobox } from "@/components/ui/combobox"
 import { MultiSelect, OptionType } from "@/components/ui/multiselect";
 import { Post, columns } from "./columns"
 import { DataTable } from "./data-table"
-
+import { createClient } from '@/utils/supabase/server'
+import { cookies } from "next/headers"
 
 const platformOptions = [
   {value: 'steam', label: 'Steam'},
@@ -24,9 +24,8 @@ const regionOptions: OptionType[] = [
 const selectedOptions: string[] = []
 const handleChange = () => {}
 
-async function getData(): Promise<Post[]> {
-  // Fetch data from your API here.
-  return [
+
+   /*
     {
       id: "728ed52f",
       discordName: "random-sweaty300",
@@ -36,17 +35,20 @@ async function getData(): Promise<Post[]> {
       class: 'M',
       rank: 'paper-1',
       notes: 'feed plz'
-    },
-    // ...
-  ]
-}
+    },*/
+    
 
 export default async function Page() {
-
-  const data = await getData()
-
-  return <>
-
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore)
+  const { data: users } = await supabase.from("posts").select();
+  //const posts = await supabase.from('posts').select()
+  console.log(users)
+  
+  return (  
+  <>
+    <pre>{JSON.stringify(users, null, 2)}</pre> 
+  
     <div className="border-2 w-screen">
       <h1 className="py-2">The Finals LFG</h1>
       <p>Look for similarly skilled players</p>
@@ -57,7 +59,8 @@ export default async function Page() {
     <br />
     <br />
     <h1>Table</h1>
-    <DataTable columns={columns} data={data} />
+    <DataTable columns={columns} data={users} />
     
-  </>;
+  </>
+  )
 }

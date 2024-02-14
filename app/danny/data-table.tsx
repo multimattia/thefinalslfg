@@ -54,12 +54,44 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>  
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 justify-center">
         <Input 
           placeholder="Filter Names"
           value={(table.getColumn('discordName')?.getFilterValue() as string) ?? ""}
           onChange={(e) => {
             table.getColumn('discordName')?.setFilterValue(e.target.value)
+          }}
+          className="max-w-sm"
+        />
+        <Input 
+          placeholder="Filter Platform"
+          value={(table.getColumn('platform')?.getFilterValue() as string) ?? ""}
+          onChange={(e) => {
+            table.getColumn('platform')?.setFilterValue(e.target.value)
+          }}
+          className="max-w-sm"
+        />
+        <Input 
+          placeholder="Filter Region"
+          value={(table.getColumn('region')?.getFilterValue() as string) ?? ""}
+          onChange={(e) => {
+            table.getColumn('region')?.setFilterValue(e.target.value)
+          }}
+          className="max-w-sm"
+        />
+        <Input 
+          placeholder="Filter Class"
+          value={(table.getColumn('class')?.getFilterValue() as string) ?? ""}
+          onChange={(e) => {
+            table.getColumn('class')?.setFilterValue(e.target.value)
+          }}
+          className="max-w-sm"
+        />
+        <Input 
+          placeholder="Filter Rank"
+          value={(table.getColumn('rank')?.getFilterValue() as string) ?? ""}
+          onChange={(e) => {
+            table.getColumn('rank')?.setFilterValue(e.target.value)
           }}
           className="max-w-sm"
         />

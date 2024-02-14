@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Post = {
-  id: string
+  id: BigInteger
   discordName: string
   embarkId: string
-  platform: string
+  platform: string[]
   region: string
   class: string
   rank: string
