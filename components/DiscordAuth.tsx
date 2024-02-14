@@ -1,12 +1,13 @@
 import { createClient } from '@/utils/supabase/server'
-import Link from 'next/link'
-import { headers, cookies } from 'next/headers'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import Image from 'next/image'
 
-export default async function AuthButton() {
+export default async function DiscordAuth() {
+  'use server'
   const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
 
+  const supabase = createClient(cookieStore)
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -17,48 +18,62 @@ export default async function AuthButton() {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
     await supabase.auth.signOut()
-    return redirect('/login')
+    return redirect('/')
   }
 
-  const signUp = async (formData: FormData) => {
+  const signIn = async () => {
     'use server'
-
-    // const origin = headers().get("origin");
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore)
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    })
-
-    if (error) {
-      return redirect('/login?message=Could not authenticate user')
+    const getURL = () => {
+      let url = ''
+      if (process?.env?.NEXT_PUBLIC_SITE_URL) {
+        url = `${process?.env?.NEXT_PUBLIC_SITE_URL}/auth/callback`
+      } else if (process?.env?.NEXT_PUBLIC_VERCEL_URL) {
+        url = `${process?.env?.NEXT_PUBLIC_VERCEL_URL}/auth/callback`
+      } else {
+        url = 'http://localhost:3000/auth/callback'
+      }
+      // Make sure to include `https://` when not localhost.
+      url = url.includes('http') ? url : `https://${url}`
+      // Make sure to include a trailing `/`.
+      url = url.charAt(url.length - 1) === '/' ? url : `${url}/`
+      return url
     }
 
-    return redirect('/login?message=Check email to continue sign in process')
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+      options: {
+        redirectTo: getURL(),
+      },
+    })
+    if (error) {
+      console.error(error)
+    }
+    return redirect(data.url!)
   }
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
       <form action={signOut}>
-        <button className="rounded-md bg-btn-background px-4 py-2 no-underline hover:bg-btn-background-hover">
+        <button className="rounded-md bg-btn-background px-4 py-2 font-sans no-underline hover:bg-btn-background-hover">
           Logout
         </button>
       </form>
+      {user.user_metadata.full_name}
+      <Image
+        className="rounded-full"
+        src={user.user_metadata.picture}
+        width={35}
+        height={35}
+        alt="Picture of the current user taken from Discord"
+      />
     </div>
   ) : (
-    <Link
-      href="/loginWithDiscord"
-      className="flex rounded-md bg-btn-background px-3 py-2 no-underline hover:bg-btn-background-hover"
-    >
-      Login
-    </Link>
+    <form action={signIn}>
+      <button className="rounded-md bg-btn-background px-4 py-2 font-sans no-underline hover:bg-btn-background-hover">
+        Sign in with Discord
+      </button>
+    </form>
   )
 }
