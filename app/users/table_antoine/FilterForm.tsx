@@ -5,7 +5,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FilterSchema } from "@/lib/filterschema";
 import { addFilter, initialList } from "./_actions";
-import { useEffect, useState } from "react";
+import {
+  JSXElementConstructor,
+  PromiseLikeOfReactNode,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useEffect,
+  useState,
+} from "react";
 
 const formFields = [
   {
@@ -148,15 +156,58 @@ export default function CheckboxReactHookFormMultiple() {
         </button>
       </form>
       <div>
-        {data.map((object) => (
-          <>
-            <p>Discord name: {object.discord_name}</p>
-            <p>Embark ID: {object.embark_id}</p>
-            <p>Rank: {object.rank}</p>
-            <p>Platform: {object.platforms}</p>
-            <p> ------ </p>
-          </>
-        ))}
+        {data.map(
+          (object: {
+            discord_name:
+              | string
+              | number
+              | boolean
+              | ReactElement<any, string | JSXElementConstructor<any>>
+              | Iterable<ReactNode>
+              | ReactPortal
+              | PromiseLikeOfReactNode
+              | null
+              | undefined;
+            embark_id:
+              | string
+              | number
+              | boolean
+              | ReactElement<any, string | JSXElementConstructor<any>>
+              | Iterable<ReactNode>
+              | ReactPortal
+              | PromiseLikeOfReactNode
+              | null
+              | undefined;
+            rank:
+              | string
+              | number
+              | boolean
+              | ReactElement<any, string | JSXElementConstructor<any>>
+              | Iterable<ReactNode>
+              | ReactPortal
+              | PromiseLikeOfReactNode
+              | null
+              | undefined;
+            platforms:
+              | string
+              | number
+              | boolean
+              | ReactElement<any, string | JSXElementConstructor<any>>
+              | Iterable<ReactNode>
+              | ReactPortal
+              | PromiseLikeOfReactNode
+              | null
+              | undefined;
+          }) => (
+            <>
+              <p>Discord name: {object.discord_name}</p>
+              <p>Embark ID: {object.embark_id}</p>
+              <p>Rank: {object.rank}</p>
+              <p>Platform: {object.platforms}</p>
+              <p> ------ </p>
+            </>
+          ),
+        )}
       </div>
     </>
   );
