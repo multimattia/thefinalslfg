@@ -23,13 +23,7 @@ import {
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
-import {
-  RANKS,
-  REGIONS,
-  PLATFORMS,
-  possiblePlatforms,
-  FormDataSchema,
-} from '@/lib/formschema'
+import { RANKS, REGIONS, PLATFORMS, FormDataSchema } from '@/lib/formschema'
 import { addListing } from '@/app/api/form/_actions'
 
 export default function ProfileForm(userData: {
