@@ -112,7 +112,7 @@ export default function ProfileForm(userData: {
               <FormLabel>Select Platforms</FormLabel>
               <MultiSelect
                 selected={field.value}
-                options={multiSelectify(PLATFORMS)}
+                options={multiSelectify([...PLATFORMS])}
                 {...field}
                 className="sm:w-[510px]"
               />

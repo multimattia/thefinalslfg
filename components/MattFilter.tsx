@@ -61,13 +61,13 @@ export default function MattFilter() {
   return (
     <div className="flex-row content-between justify-between gap-4">
       <MultiSelect
-        options={multiSelectify(PLATFORMS)}
+        options={multiSelectify([...PLATFORMS])}
         className="sm:w-[510px]"
         selected={platform as string[]}
         onChange={setPlatform}
       />
       <MultiSelect
-        options={multiSelectify(RANKS)}
+        options={multiSelectify([...RANKS])}
         className="sm:w-[510px]"
         selected={rank as string[]}
         onChange={setRank}

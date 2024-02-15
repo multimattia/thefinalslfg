@@ -3,7 +3,14 @@
 import { z } from "zod";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const RANKS = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "N/A"];
+export const RANKS = [
+  "Bronze",
+  "Silver",
+  "Gold",
+  "Platinum",
+  "Diamond",
+  "N/A",
+] as const;
 export const REGIONS = [
   "Africa",
   "Asia",
@@ -13,7 +20,7 @@ export const REGIONS = [
   "South America",
 ] as const;
 
-export const PLATFORMS = ["PlayStation", "Steam", "Xbox"];
+export const PLATFORMS = ["PlayStation", "Steam", "Xbox"] as const;
 
 export const multiSelectify = (options: string[]) => {
   return options.map((option) => {
