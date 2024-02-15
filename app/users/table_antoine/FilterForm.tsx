@@ -14,6 +14,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import Link from "next/link";
 
 const formFields = [
   {
@@ -108,6 +109,10 @@ export default function CheckboxReactHookFormMultiple() {
   });
 
   useEffect(() => {
+    console.log("useEffect test");
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const users = await initialList();
@@ -117,12 +122,29 @@ export default function CheckboxReactHookFormMultiple() {
         console.error("error fetch data", error);
       }
     };
-
     fetchData();
   }, []);
 
+  const handleClearButton = async () => {
+    try {
+      const users = await initialList();
+      console.log(users.data);
+      setData(users.data);
+    } catch (error) {
+      console.error("error fetch data", error);
+    }
+  };
+
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    const result = await addFilter(data);
+    try {
+      const users = await addFilter(data);
+      console.log(users);
+      const info = users.data.data;
+      console.log(info);
+      setData(info);
+    } catch (error) {
+      console.log("error fetch data 2", error);
+    }
   };
 
   if (!data) {
@@ -158,6 +180,8 @@ export default function CheckboxReactHookFormMultiple() {
       <div>
         {data.map(
           (object: {
+            region: ReactNode;
+            class: ReactNode;
             discord_name:
               | string
               | number
@@ -204,6 +228,8 @@ export default function CheckboxReactHookFormMultiple() {
               <p>Embark ID: {object.embark_id}</p>
               <p>Rank: {object.rank}</p>
               <p>Platform: {object.platforms}</p>
+              <p>Region: {object.region}</p>
+              <p>Class: {object.class}</p>
               <p> ------ </p>
             </>
           ),
