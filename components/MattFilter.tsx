@@ -17,18 +17,33 @@ import { useCallback } from "react";
 import { RANKS, REGIONS, PLATFORMS, multiSelectify } from "@/lib/formschema";
 import { useEffect } from "react";
 
+// export default function MattFilter({
+//   initialPlatforms,
+//   initialRanks,
+//   initialRegion,
+// }: {
+//   initialPlatforms: string[];
+//   initialRanks: string[];
+//   initialRegion: string;
+// }) {
 export default function MattFilter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
-  const platforms = [searchParams.get("platforms")];
-  const ranks = [searchParams.get("rank")];
-  console.log(platforms);
-  console.log(ranks);
-  const [platform, setPlatform] = useState<string[]>(platforms as string[]);
-  const [rank, setRank] = useState<string[]>(ranks as string[]);
+  const platforms = [searchParams.get("platforms")] || ["PlayStation"];
+  let ranks: string = searchParams.get("rank") || "Silver";
+  let rankArray: string[] = [""];
   const newRegion = searchParams.get("region") || "North America";
+  if (ranks.includes(",")) {
+    rankArray = ranks.split(",");
+  } else {
+    rankArray[0] = ranks;
+  }
+
+  const [platform, setPlatform] = useState<string[]>(platforms as string[]);
+  const [rank, setRank] = useState<string[]>(rankArray as string[]);
+  const [region, setRegion] = useState<string>(newRegion);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
