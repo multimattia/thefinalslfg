@@ -3,6 +3,8 @@ import { Poppins, Saira } from "next/font/google";
 import Link from "next/link";
 import { cn } from "../lib/utils";
 import DiscordAuth from "@/components/DiscordAuth";
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModeToggle } from "@/components/ui/mode-toggle"; 
 
 const saira = Saira({
   subsets: ["latin"],
@@ -40,25 +42,33 @@ export default function RootLayout({
       )}
     >
       <body className="bg-background text-foreground">
-        <main className="flex min-h-screen flex-col items-center">
-          <div className="flex w-full flex-1 flex-col items-center gap-20">
-            <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
-              <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-                <Link href="/" className="font-heavy text-2xl">
-                  THE FINALS LFG
-                </Link>
-                <Link href="/matt" className="font-sans ">
-                  Matt's form
-                </Link>
-                <Link href="/danny" className="font-sans ">
-                  danny's page
-                </Link>
-                <DiscordAuth />
-              </div>
-            </nav>
-          </div>
-          <div className="flex-1">{children}</div>
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="flex min-h-screen flex-col items-center">
+            <div className="flex w-full flex-1 flex-col items-center gap-20">
+              <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
+                <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
+                  <Link href="/" className="font-heavy text-2xl">
+                    THE FINALS LFG
+                  </Link>
+                  <Link href="/matt" className="font-sans ">
+                    Matt's form
+                  </Link>
+                  <Link href="/danny" className="font-sans ">
+                    danny's page
+                  </Link>
+                  <ModeToggle />
+                  <DiscordAuth />
+                </div>
+              </nav>
+            </div>
+            <div className="flex-1">{children}</div>
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
