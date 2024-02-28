@@ -14,7 +14,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import Link from "next/link";
 
 const formFields = [
   {
@@ -137,9 +136,15 @@ export default function CheckboxReactHookFormMultiple() {
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
     try {
-      const users = await addFilter(data);
-      console.log(users);
-      const info = users.data.data;
+      const response = await addFilter(data);
+      console.log(response);
+      // let info = users?.data?.data;
+      let info = null;
+      if (response) {
+        if (response.success) {
+          info = response.data;
+        }
+      }
       console.log(info);
       setData(info);
     } catch (error) {

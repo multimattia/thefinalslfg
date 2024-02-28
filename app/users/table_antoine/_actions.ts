@@ -23,7 +23,7 @@ export async function addFilter(data: Inputs) {
         let filters = ''
 
         for (const property in data) {
-            if (data[property] === true){
+            if ((data as any)[property] === true){
                 const capitalizedProperty = property.charAt(0).toUpperCase() + property.slice(1);
                 filters += `rank.eq.${capitalizedProperty},`;
             }
@@ -31,10 +31,11 @@ export async function addFilter(data: Inputs) {
         filters = filters.slice(0, -1); // Remove the trailing comma
         console.log(filters)
         if (filters) {
-
-            return{success: true, data: (await supabase.from("posts").select().or(filters))};
+            const temp = await supabase.from("posts").select().or(filters);
+            return{success: true, data: temp.data};
         } else {
-            return{success: true, data: (await supabase.from("posts").select())};
+            const temp = await supabase.from("posts").select();
+            return{success: true, data: temp.data};
 
         }
     }
