@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { MultiSelect } from "./ui/multiselect";
@@ -28,8 +27,8 @@ import {
   RANKS,
   REGIONS,
   PLATFORMS,
-  possiblePlatforms,
   FormDataSchema,
+  multiSelectify,
 } from "@/lib/formschema";
 import { addListing } from "@/app/api/form/_actions";
 
@@ -69,7 +68,6 @@ export default function ProfileForm(userData: {
     }
 
     reset();
-    // setData(result.data);
   };
 
   return (
@@ -114,7 +112,7 @@ export default function ProfileForm(userData: {
               <FormLabel>Select Platforms</FormLabel>
               <MultiSelect
                 selected={field.value}
-                options={possiblePlatforms}
+                options={multiSelectify([...PLATFORMS])}
                 {...field}
                 className="sm:w-[510px]"
               />

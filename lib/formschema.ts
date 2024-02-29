@@ -1,6 +1,7 @@
 // "use client";
 
 import { z } from "zod";
+import { ColumnDef } from "@tanstack/react-table";
 
 export const RANKS = [
   "Bronze",
@@ -21,20 +22,16 @@ export const REGIONS = [
 
 export const PLATFORMS = ["PlayStation", "Steam", "Xbox"] as const;
 
-export const possiblePlatforms = [
-  {
-    value: "PlayStation",
-    label: "PlayStation",
-  },
-  {
-    value: "Steam",
-    label: "Steam",
-  },
-  {
-    value: "Xbox",
-    label: "Xbox",
-  },
-];
+export const multiSelectify = (options: string[]) => {
+  return options.map((option) => {
+    return { value: option, label: option };
+  });
+};
+
+export const paginationSchema = z.object({
+  page: z.coerce.number().positive().lt(5),
+  recordsPerPage: z.coerce.number().positive().lt(100),
+});
 
 export const FormDataSchema = z.object({
   embarkUsername: z.string().regex(new RegExp("^.{3,32}#[0-9]{4}$"), {
@@ -52,3 +49,36 @@ export const FormDataSchema = z.object({
   region: z.enum(REGIONS),
   platform: z.enum(PLATFORMS).array(),
 });
+
+type Listing = z.infer<typeof FormDataSchema>;
+
+export const columns: ColumnDef<Listing>[] = [
+  {
+    accessorKey: "discord_name",
+    header: "Discord Name",
+  },
+  {
+    accessorKey: "embark_id",
+    header: "Embark ID",
+  },
+  {
+    accessorKey: "rank",
+    header: "Rank",
+  },
+  {
+    accessorKey: "region",
+    header: "Region",
+  },
+  {
+    accessorKey: "platforms",
+    header: "Platform",
+  },
+  {
+    accessorKey: "notes",
+    header: "Notes",
+  },
+  {
+    accessorKey: "class",
+    header: "Class",
+  },
+];
