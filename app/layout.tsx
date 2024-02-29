@@ -43,14 +43,32 @@ export default function RootLayout({
         <main className="flex min-h-screen flex-col items-center">
           <div className="flex w-full flex-1 flex-col items-center gap-20">
             <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
-              <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-                <Link href="/" className="font-heavy text-2xl">
+              <div className="flex w-full max-w-4xl flex-row items-center justify-between p-3 text-sm">
+                <Link href="/" className="block font-heavy text-2xl">
                   THE FINALS LFG
                 </Link>
-                <Link href="/matt" className="font-sans ">
+                <div id="hamburger" className="cursor-pointer pr-5 sm:hidden">
+                  <span className="mb-1.5 block h-1 w-7 bg-black"></span>
+                  <span className="mb-1.5 block h-1 w-7 bg-black"></span>
+                  <span className="mb-1.5 block h-1 w-7 bg-black"></span>
+                </div>
+                <Link
+                  id="ham_element"
+                  href="/matt"
+                  className="hidden font-sans sm:block"
+                >
                   Matt's form
                 </Link>
-                <DiscordAuth />
+                <Link
+                  id="ham_element"
+                  href="/users/table_antoine"
+                  className="hidden font-sans sm:block "
+                >
+                  Ant's table
+                </Link>
+                <div id="ham_element" className="hidden sm:block ">
+                  <DiscordAuth />
+                </div>
               </div>
             </nav>
           </div>
