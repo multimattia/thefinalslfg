@@ -3,6 +3,7 @@ import { Poppins, Saira } from "next/font/google";
 import Link from "next/link";
 import { cn } from "../lib/utils";
 import DiscordAuth from "@/components/DiscordAuth";
+import Hamburger from "@/components/Hamburger";
 
 const saira = Saira({
   subsets: ["latin"],
@@ -47,28 +48,8 @@ export default function RootLayout({
                 <Link href="/" className="block font-heavy text-2xl">
                   THE FINALS LFG
                 </Link>
-                <div id="hamburger" className="cursor-pointer pr-5 sm:hidden">
-                  <span className="mb-1.5 block h-1 w-7 bg-black"></span>
-                  <span className="mb-1.5 block h-1 w-7 bg-black"></span>
-                  <span className="mb-1.5 block h-1 w-7 bg-black"></span>
-                </div>
-                <Link
-                  id="ham_element"
-                  href="/matt"
-                  className="hidden font-sans sm:block"
-                >
-                  Matt's form
-                </Link>
-                <Link
-                  id="ham_element"
-                  href="/users/table_antoine"
-                  className="hidden font-sans sm:block "
-                >
-                  Ant's table
-                </Link>
-                <div id="ham_element" className="hidden sm:block ">
-                  <DiscordAuth />
-                </div>
+                <DiscordAuth />
+                <Hamburger />
               </div>
             </nav>
           </div>
