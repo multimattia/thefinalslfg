@@ -23,8 +23,9 @@ export default function Page() {
     //check if user is logged in
     if (user) {
       // insert form data into supabase and redirect user
-      const { error } = await supabase.from("users").insert({
-        discord_name: user?.user_metadata?.full_name,
+
+      const { error } = await supabase.from("posts").insert({
+        discord_name: user?.user_metadata.full_name,
         embark_id: rawFormData.embarkId,
         rank: rawFormData.playerRank,
         user_id: user?.id,
