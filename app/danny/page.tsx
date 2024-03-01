@@ -5,6 +5,7 @@ import { Post, columns } from "./columns"
 import { DataTable } from "./data-table"
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from "next/headers"
+import { Button } from "@/components/ui/button";
 
 export default async function Page() {
   const cookieStore = cookies();
@@ -17,9 +18,12 @@ export default async function Page() {
   <div className="w-screen px-4">
     {/*<pre>{JSON.stringify(users, null, 2)}</pre> */}
   
-    <div className="border-2 p-2">
-      <h1 className="">The Finals LFG</h1>
-      <p>Look for similarly skilled players</p>
+    <div className="flex border-2 p-2">
+      <div className="flex-col">
+        <h1 className="font-bold text-3xl">THE FINALS LFG</h1>
+        <p>Quickly find similarly skilled players to party up with and climb the leaderboards. Posts expire after 48 hours.</p>
+      </div>
+        <Button className="flex-end my-4" variant={"accent"}>SUBMIT POST</Button>     
     </div>
     
     <h1>Table</h1>
