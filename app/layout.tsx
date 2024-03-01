@@ -1,3 +1,4 @@
+
 import "./globals.css";
 import { Poppins, Saira } from "next/font/google";
 import Link from "next/link";
@@ -7,40 +8,29 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ModeToggle } from "@/components/ui/mode-toggle"; 
 
 const saira = Saira({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-saira",
-});
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-saira',
+})
 
 const poppins = Poppins({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "600",
-  variable: "--font-poppins",
-});
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '600',
+  variable: '--font-poppins',
+})
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
-};
+  title: 'Next.js and Supabase Starter Kit',
+  description: 'The fastest way to build apps with Next.js and Supabase',
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={cn(
-        `font-sans antialiased ${saira.variable} ${poppins.variable}`,
-      )}
-    >
+    <html lang="en" className={cn(`font-sans antialiased ${saira.variable} ${poppins.variable}`)}>
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
@@ -71,5 +61,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
