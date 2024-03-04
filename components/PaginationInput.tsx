@@ -66,12 +66,12 @@ export default function PaginationInput({
       const recordsPerPage = result.data.recordsPerPage.toString();
       console.log(page);
       console.log(recordsPerPage);
-      router.push(
-        pathname +
-          "?" +
-          createQueryString("pagination", recordsPerPage) +
-          createQueryString("page", page)
-      );
+      // router.push(
+      //   pathname +
+      //     "?" +
+      //     createQueryString("pagination", recordsPerPage) +
+      //     createQueryString("page", page)
+      // );
     }
 
     reset();

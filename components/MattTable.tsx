@@ -53,7 +53,7 @@ export default function MattTable<TData, TValue>({
   });
 
   return (
-    <div className="min-h-fit min-w-full rounded-md border">
+    <div className=" min-h-fit rounded-lg border-none">
       <div className="mx-5 flex items-center py-4">
         <Input
           placeholder="Search..."
@@ -64,13 +64,19 @@ export default function MattTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <Table>
-        <TableHeader>
+      <Table className="w-[1110px] min-w-full rounded-lg border-none">
+        <TableHeader className="border-none bg-transparent">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow
+              key={headerGroup.id}
+              className="hover:none rounded-lg border-none font-heavy"
+            >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className="rounded-lg text-lg tracking-tight text-white"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -83,15 +89,16 @@ export default function MattTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="bg-modal border-none border-l-slate-700">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="gap-2 border-b-[#636363] text-base text-white last:rounded-b-lg hover:bg-[#636363]"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className="border-l-slate-700">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
