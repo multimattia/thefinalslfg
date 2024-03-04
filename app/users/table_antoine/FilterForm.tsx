@@ -236,6 +236,7 @@ export default function CheckboxReactHookFormMultiple() {
               <p>Embark ID: {object.embark_id}</p>
               <p>Rank: {object.rank}</p>
               <p>
+                Platform:{" "}
                 {object.platforms
                   ? object.platforms.map((platform) => {
                       switch (platform) {
@@ -245,8 +246,8 @@ export default function CheckboxReactHookFormMultiple() {
                               className="inline"
                               src={steamIcon}
                               alt="Steam Icon"
-                              width={25}
-                              height={25}
+                              width={20}
+                              height={20}
                             />
                           );
                         case "PlayStation":
@@ -255,8 +256,8 @@ export default function CheckboxReactHookFormMultiple() {
                               className="inline"
                               src={playstationIcon}
                               alt="Playstation Icon"
-                              width={25}
-                              height={25}
+                              width={20}
+                              height={20}
                             />
                           );
                         case "Xbox":
@@ -265,8 +266,8 @@ export default function CheckboxReactHookFormMultiple() {
                               className="inline"
                               src={xboxIcon}
                               alt="Xbox Icon"
-                              width={25}
-                              height={25}
+                              width={20}
+                              height={20}
                             />
                           );
                         default:
