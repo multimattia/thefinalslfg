@@ -14,6 +14,11 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+
+import Image from "next/image";
+import CopyIcon from "@/app/svgs/copy.svg";
 
 const formFields = [
   {
@@ -101,6 +106,8 @@ const formFields = [
 type Inputs = z.infer<typeof FilterSchema>;
 
 export default function CheckboxReactHookFormMultiple() {
+  const { toast } = useToast();
+
   const [data, setData] = useState<Record<string, any> | null>(null);
 
   const { register, handleSubmit } = useForm<Inputs>({
@@ -187,16 +194,7 @@ export default function CheckboxReactHookFormMultiple() {
           (object: {
             region: ReactNode;
             class: ReactNode;
-            discord_name:
-              | string
-              | number
-              | boolean
-              | ReactElement<any, string | JSXElementConstructor<any>>
-              | Iterable<ReactNode>
-              | ReactPortal
-              | PromiseLikeOfReactNode
-              | null
-              | undefined;
+            discord_name: string;
             embark_id:
               | string
               | number
@@ -229,15 +227,27 @@ export default function CheckboxReactHookFormMultiple() {
               | undefined;
           }) => (
             <>
-              <p>Discord name: {object.discord_name}</p>
+              <p className="inline">Discord name: {object.discord_name}</p>
+              <button
+                className="inlin ml-2"
+                onClick={() => {
+                  navigator.clipboard.writeText(object.discord_name);
+                  toast({
+                    title: `${object.discord_name} copied to clipboard`,
+                  });
+                }}
+              >
+                <Image src={CopyIcon} alt="Copy Icon" width={15} height={15} />
+              </button>
               <p>Embark ID: {object.embark_id}</p>
               <p>Rank: {object.rank}</p>
               <p>Platform: {object.platforms}</p>
               <p>Region: {object.region}</p>
               <p>Class: {object.class}</p>
+
               <p> ------ </p>
             </>
-          ),
+          )
         )}
       </div>
     </>
