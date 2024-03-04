@@ -54,7 +54,7 @@ export default async function DiscordAuth() {
   };
 
   return user ? (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 text-white">
       <form action={signOut}>
         <button className="rounded-md bg-btn-background px-4 py-2 font-sans text-white no-underline hover:bg-btn-background-hover">
           Logout
