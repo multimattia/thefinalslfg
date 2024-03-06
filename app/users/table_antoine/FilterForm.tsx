@@ -15,6 +15,12 @@ import {
   useState,
 } from "react";
 
+import Image from "next/image";
+import steamIcon from "@/app/svgs/steam.svg";
+import xboxIcon from "@/app/svgs/xbox.svg";
+import playstationIcon from "@/app/svgs/playstation.svg";
+import CopyButton from "@/components/CopyButton";
+
 const formFields = [
   {
     name: "Platform",
@@ -187,16 +193,7 @@ export default function CheckboxReactHookFormMultiple() {
           (object: {
             region: ReactNode;
             class: ReactNode;
-            discord_name:
-              | string
-              | number
-              | boolean
-              | ReactElement<any, string | JSXElementConstructor<any>>
-              | Iterable<ReactNode>
-              | ReactPortal
-              | PromiseLikeOfReactNode
-              | null
-              | undefined;
+            discord_name: string;
             embark_id:
               | string
               | number
@@ -217,27 +214,60 @@ export default function CheckboxReactHookFormMultiple() {
               | PromiseLikeOfReactNode
               | null
               | undefined;
-            platforms:
-              | string
-              | number
-              | boolean
-              | ReactElement<any, string | JSXElementConstructor<any>>
-              | Iterable<ReactNode>
-              | ReactPortal
-              | PromiseLikeOfReactNode
-              | null
-              | undefined;
+            platforms: string[] | null | undefined;
           }) => (
             <>
-              <p>Discord name: {object.discord_name}</p>
+              <p className="inline">Discord name: {object.discord_name}</p>
+              <CopyButton discordName={object.discord_name} />
               <p>Embark ID: {object.embark_id}</p>
               <p>Rank: {object.rank}</p>
-              <p>Platform: {object.platforms}</p>
+              <p>
+                Platform:{" "}
+                {object.platforms
+                  ? object.platforms.map((platform) => {
+                      switch (platform) {
+                        case "Steam":
+                          return (
+                            <Image
+                              className="inline"
+                              src={steamIcon}
+                              alt="Steam Icon"
+                              width={20}
+                              height={20}
+                            />
+                          );
+                        case "PlayStation":
+                          return (
+                            <Image
+                              className="inline"
+                              src={playstationIcon}
+                              alt="Playstation Icon"
+                              width={20}
+                              height={20}
+                            />
+                          );
+                        case "Xbox":
+                          return (
+                            <Image
+                              className="inline"
+                              src={xboxIcon}
+                              alt="Xbox Icon"
+                              width={20}
+                              height={20}
+                            />
+                          );
+                        default:
+                          return null;
+                      }
+                    })
+                  : null}
+              </p>
               <p>Region: {object.region}</p>
               <p>Class: {object.class}</p>
+
               <p> ------ </p>
             </>
-          ),
+          )
         )}
       </div>
     </>
