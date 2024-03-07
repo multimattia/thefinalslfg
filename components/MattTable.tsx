@@ -89,7 +89,7 @@ export default function MattTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="bg-modal border-none border-l-slate-700">
+        <TableBody className="border-none border-l-slate-700 bg-modal">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -98,7 +98,10 @@ export default function MattTable<TData, TValue>({
                 className="gap-2 border-b-[#636363] text-base text-white last:rounded-b-lg hover:bg-[#636363]"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="border-l-slate-700">
+                  <TableCell
+                    key={cell.id}
+                    className="border-l-slate-700 text-white"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
