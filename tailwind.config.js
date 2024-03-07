@@ -21,6 +21,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-saira)"],
         heavy: ["var(--font-poppins)"],
+        backgroundImge: {
+          'radial-gradient': 'radial-gradient(var(--tw-gradient-stops))',
+        },
       },
       colors: {
         border: "hsl(var(--border))",
@@ -82,8 +85,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  // plugins: [function({ addutilities, addComponents, e, config}){}
 };
+
+
 // satisfies Config;
 
 // export default config;
