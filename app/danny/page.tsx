@@ -16,7 +16,6 @@ export default async function Page() {
   
   return (  
   <div className="w-screen px-4">
-    {/*<pre>{JSON.stringify(users, null, 2)}</pre> */}
   
     <div className="flex border-2 p-2">
       <div className="flex-col">
