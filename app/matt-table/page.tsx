@@ -15,7 +15,7 @@ export default async function Page({
 }) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const ITEMS_PER_PAGE = 3;
+  const ITEMS_PER_PAGE = 4;
   const params = {
     region: searchParams.region || "North America",
     rank: searchParams.rank || "Silver",
@@ -42,10 +42,34 @@ export default async function Page({
   // } else {
   //   query = query.contains("platforms", [params.platforms]);
   // }
+  if (params.page === "") {
+    params.page = "2";
+  }
+
+  if (params.recordsPerPage === "") {
+    params.recordsPerPage = "2";
+  }
+
+  if (params.region !== "") {
+    query = query.eq("region", params.region);
+  }
+
+  if (params.platforms !== "") {
+    const platformArray = params.platforms.split(",");
+    if (platformArray.length !== 2) {
+      const accumulator = [];
+      for (let platform of platformArray) {
+        accumulator.push(`platforms.cn.${platform}`);
+      }
+      query = query.or(accumulator.toString());
+    } else {
+      query = query.contains("platforms", [params.platforms]);
+    }
+  }
 
   if (params.rank !== "") {
     const rankArray = params.rank.split(",");
-    if (rankArray.length !== 1) {
+    if (rankArray.length !== 2) {
       const accumulator = [];
       for (let rank of rankArray) {
         accumulator.push(`rank.eq.${rank}`);
@@ -59,11 +83,13 @@ export default async function Page({
   query = query.eq("region", [params.region]);
   query = query.contains("platforms", [params.platforms]);
 
-  let offset: number = 0;
-  let records: number = 5;
+  let offset: number = 1;
+  let records: number = 6;
   try {
     console.log("trying block");
     offset = (Number(params.page) - 1) * Number(params.recordsPerPage);
+    console.log(`page, records: ${params.page}, ${params.recordsPerPage}`);
+    offset = (Number(params.page) - 2) * Number(params.recordsPerPage);
     records = Number(params.recordsPerPage);
     console.log(`offset: ${offset} records: ${records}`);
   } catch {
@@ -84,7 +110,7 @@ export default async function Page({
   const pageCount = Math.ceil(count! / ITEMS_PER_PAGE);
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col gap-5 bg-slate-500 p-11">
+    <div className="flex min-h-screen min-w-full flex-col gap-5 p-11">
       <div className="bg-modal flex flex-row items-center justify-between rounded-lg px-9 py-4">
         <div className="">
           <h1 className="font-heavy text-4xl font-extrabold tracking-tighter text-white">

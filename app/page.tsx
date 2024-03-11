@@ -72,10 +72,6 @@ export default async function Index({
   }
   const { data: users, error: filteredError } = await query.select();
 
-  // const { data: users, error: filteredError } = await query.range(
-  //   offset,
-  //   records
-  // );
   console.log(`${query}`);
 
   const { count: count } = await supabase
@@ -84,8 +80,8 @@ export default async function Index({
   const pageCount = Math.ceil(count! / ITEMS_PER_PAGE);
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col gap-5 bg-slate-500 p-11">
-      <div className="flex flex-row items-center justify-between rounded-lg bg-modal px-9 py-4">
+    <div className="flex min-h-screen min-w-full flex-col gap-5 p-11">
+      <div className="bg-modal flex flex-row items-center justify-between rounded-lg px-9 py-4">
         <div className="">
           <h1 className="font-heavy text-4xl font-extrabold tracking-tighter text-white">
             THE FINALS LFG
@@ -109,10 +105,10 @@ export default async function Index({
       <Suspense fallback={<p>loading...</p>}></Suspense>
       <Suspense fallback={<p>loading...</p>}>
         {users ? <MattTable columns={columns} data={users} /> : <p>No users</p>}
-        <PaginationInput
+        {/* <PaginationInput
           pageNumber={params.page}
           recordsPerPage={params.recordsPerPage}
-        />
+        /> */}
       </Suspense>
     </div>
   );

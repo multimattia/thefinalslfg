@@ -72,17 +72,27 @@ export default function ProfileForm(userData: {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(processForm)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(processForm)}
+        className="bg-modal space-y-4 rounded-lg p-5"
+      >
+        <h1 className="font-heavy text-6xl font-extrabold tracking-tighter text-white">
+          SUBMIT A POST
+        </h1>
         <FormField
           control={form.control}
           name="embarkUsername"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Embark Username</FormLabel>
+              <FormLabel className="text-lg text-white">
+                Embark Username
+              </FormLabel>
               <FormControl>
                 <Input placeholder="TheFinals#3123" {...field} />
               </FormControl>
-              <FormDescription>This is your in-game username.</FormDescription>
+              <FormDescription className="text-slate-200">
+                This is your in-game username.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -92,11 +102,13 @@ export default function ProfileForm(userData: {
           name="discordUsername"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Discord username</FormLabel>
+              <FormLabel className="text-lg text-white">
+                Discord username
+              </FormLabel>
               <FormControl>
                 <Input placeholder="TheFinals" {...field} />
               </FormControl>
-              <FormDescription>
+              <FormDescription className="text-slate-200">
                 This is your Discord username. If you're signed in, we've
                 prefilled this for you!
               </FormDescription>
@@ -109,7 +121,9 @@ export default function ProfileForm(userData: {
           name="platform"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Select Platforms</FormLabel>
+              <FormLabel className="text-lg text-white">
+                Select Platforms
+              </FormLabel>
               <MultiSelect
                 selected={field.value}
                 options={multiSelectify([...PLATFORMS])}
@@ -125,7 +139,7 @@ export default function ProfileForm(userData: {
           name="rank"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Rank</FormLabel>
+              <FormLabel className="text-lg text-white">Rank</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -149,7 +163,7 @@ export default function ProfileForm(userData: {
           name="region"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Region</FormLabel>
+              <FormLabel className="text-lg text-white">Region</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>

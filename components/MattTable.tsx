@@ -89,13 +89,13 @@ export default function MattTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="border-none border-l-slate-700 bg-modal">
+        <TableBody className="bg-modal border-none border-l-slate-700">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="gap-2 border-b-[#636363] text-base text-white last:rounded-b-lg hover:bg-[#636363]"
+                className="gap-2 border-b-[#636363] text-base text-white last:rounded-b-lg hover:bg-[#a99494]"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
@@ -108,8 +108,11 @@ export default function MattTable<TData, TValue>({
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+            <TableRow className="hover:bg-none">
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center text-white hover:bg-none"
+              >
                 No results.
               </TableCell>
             </TableRow>

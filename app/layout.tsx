@@ -43,7 +43,7 @@ export default function RootLayout({
         `font-sans antialiased ${saira.variable} ${poppins.variable}`
       )}
     >
-      <body className="bg-background text-foreground">
+      <body className="bg-background bg-radial-gradient from-[#8999AC] to-[#5E6675] text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
