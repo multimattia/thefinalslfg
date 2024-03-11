@@ -46,7 +46,7 @@ export default function RootLayout({
       <body className="bg-background bg-radial-gradient from-[#8999AC] to-[#5E6675] text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
