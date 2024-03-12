@@ -54,22 +54,12 @@ export default function MattTable<TData, TValue>({
 
   return (
     <div className=" min-h-fit rounded-lg border-none">
-      <div className="mx-5 flex items-center py-4">
-        <Input
-          placeholder="Search..."
-          value={(globalFilter as string) ?? ""}
-          onChange={(event) => {
-            table.setGlobalFilter(event.target.value);
-          }}
-          className="max-w-sm"
-        />
-      </div>
       <Table className="w-[1110px] min-w-full rounded-lg border-none">
-        <TableHeader className="border-none bg-transparent">
+        <TableHeader className="hover:bg-red border-none bg-transparent">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow
               key={headerGroup.id}
-              className="hover:none rounded-lg border-none font-heavy"
+              className="hover:bg-red rounded-lg border-none font-heavy"
             >
               {headerGroup.headers.map((header) => {
                 return (
@@ -89,13 +79,13 @@ export default function MattTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="bg-modal border-none border-l-slate-700">
+        <TableBody className="bg-modal rounded-lg border-none border-l-slate-700">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="gap-2 border-b-[#636363] text-base text-white last:rounded-b-lg hover:bg-[#a99494]"
+                className="gap-2 border-b-[#636363] text-base text-white first:rounded-t-lg last:rounded-b-lg hover:bg-[#a99494]"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
@@ -108,10 +98,10 @@ export default function MattTable<TData, TValue>({
               </TableRow>
             ))
           ) : (
-            <TableRow className="hover:bg-none">
+            <TableRow className="rounded-lg hover:bg-transparent">
               <TableCell
                 colSpan={columns.length}
-                className="h-24 text-center text-white hover:bg-none"
+                className="h-24 text-center text-white"
               >
                 No results.
               </TableCell>

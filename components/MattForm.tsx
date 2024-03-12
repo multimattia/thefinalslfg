@@ -90,7 +90,7 @@ export default function ProfileForm(userData: {
               <FormControl>
                 <Input placeholder="TheFinals#3123" {...field} />
               </FormControl>
-              <FormDescription className="text-slate-200">
+              <FormDescription className="text-slate-300">
                 This is your in-game username.
               </FormDescription>
               <FormMessage />
@@ -108,7 +108,7 @@ export default function ProfileForm(userData: {
               <FormControl>
                 <Input placeholder="TheFinals" {...field} />
               </FormControl>
-              <FormDescription className="text-slate-200">
+              <FormDescription className="text-slate-300">
                 This is your Discord username. If you're signed in, we've
                 prefilled this for you!
               </FormDescription>
