@@ -1,12 +1,13 @@
 import "./globals.css";
 import { Poppins, Saira } from "next/font/google";
+import logo from "./svgs/logo.svg";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "../lib/utils";
 import DiscordAuth from "@/components/DiscordAuth";
-import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import Image from "next/image";
-import logo from "./svgs/logo.svg";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const saira = Saira({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
           </main>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

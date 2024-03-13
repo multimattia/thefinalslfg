@@ -76,3 +76,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+#radial-gradient {
+  background-image: radial-gradient(circle, #8999ac, #5e6675);
+}
