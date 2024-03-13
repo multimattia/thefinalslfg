@@ -4,7 +4,7 @@ import PaginationInput from "@/components/PaginationInput";
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { createClient } from "@/utils/supabase/server";
-import { columns } from "@/lib/formschema";
+import { columns } from "./matt-table/columns";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -81,7 +81,7 @@ export default async function Index({
 
   return (
     <div className="flex min-h-screen min-w-full flex-col gap-5 p-11">
-      <div className="bg-modal flex flex-row items-center justify-between rounded-lg px-9 py-4">
+      <div className="flex flex-row items-center justify-between rounded-lg bg-modal px-9 py-4">
         <div className="">
           <h1 className="font-heavy text-4xl font-extrabold tracking-tighter text-white">
             THE FINALS LFG

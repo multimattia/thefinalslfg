@@ -9,8 +9,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useSearchParams } from "next/navigation";
-
 import { useState } from "react";
 
 import {
@@ -79,18 +77,18 @@ export default function MattTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className="bg-modal rounded-lg border-none border-l-slate-700">
+        <TableBody className="rounded-lg border-none border-l-slate-700 bg-modal">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className="gap-2 border-b-[#636363] text-base text-white first:rounded-t-lg last:rounded-b-lg hover:bg-[#a99494]"
+                className="gap-2 rounded-lg border-b-[#636363] text-base text-white hover:bg-[#a99494]"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell
                     key={cell.id}
-                    className="border-l-slate-700 text-white"
+                    className="rounded-lg border-l-slate-700 text-white"
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>

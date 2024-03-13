@@ -1,5 +1,9 @@
-// "use client";
+"use client";
 
+import Image from "next/image";
+import playstatonIcon from "./svgs/playstation.svg";
+import xboxIcon from "./svgs/xbox.svg";
+import steamIcon from "./svgs/steam.svg";
 import { z } from "zod";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -73,10 +77,10 @@ export const MainSchema = z.object({
   class: z.enum(CLASSES).array(),
 });
 
-type Listing = z.infer<typeof FormDataSchema>;
 export type Record = z.infer<typeof MainSchema>;
 
-export const columns: ColumnDef<Listing>[] = [
+export type Listing = z.infer<typeof FormDataSchema>;
+const columns: ColumnDef<Listing>[] = [
   {
     accessorKey: "discord_name",
     header: "Discord Name",
@@ -96,6 +100,9 @@ export const columns: ColumnDef<Listing>[] = [
   {
     accessorKey: "platforms",
     header: "Platform",
+    cell: ({ row }) => {
+      console.log(row.getValue("platforms"));
+    },
   },
   {
     accessorKey: "notes",

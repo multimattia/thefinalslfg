@@ -77,7 +77,7 @@ export default function MattFilter({
   }, [rank]);
 
   return (
-    <div className="bg-modal rounded-lg p-9">
+    <div className="rounded-lg bg-modal p-9">
       <h2 className="font-heavy text-3xl font-extrabold tracking-tight text-white">
         Filter
       </h2>
