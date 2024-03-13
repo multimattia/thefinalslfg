@@ -1,9 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import playstatonIcon from "./svgs/playstation.svg";
-import xboxIcon from "./svgs/xbox.svg";
-import steamIcon from "./svgs/steam.svg";
 import { z } from "zod";
 import { ColumnDef } from "@tanstack/react-table";
 

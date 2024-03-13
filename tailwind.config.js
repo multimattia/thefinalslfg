@@ -21,6 +21,7 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-saira)"],
         heavy: ["var(--font-poppins)"],
+      },
       backgroundImage: {
         "radial-gradient": "radial-gradient(var(--tw-gradient-stops))",
       },
@@ -85,5 +86,5 @@ module.exports = {
       },
     },
   },
-  // plugins: [function({ addutilities, addComponents, e, config}){}
-}
+  plugins: [require("tailwindcss-animate")],
+};
