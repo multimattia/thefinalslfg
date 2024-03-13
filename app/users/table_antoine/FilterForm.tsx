@@ -218,7 +218,7 @@ export default function CheckboxReactHookFormMultiple() {
           }) => (
             <>
               <p className="inline">Discord name: {object.discord_name}</p>
-              <CopyButton discordName={object.discord_name} />
+              <CopyButton copyString={object.discord_name} />
               <p>Embark ID: {object.embark_id}</p>
               <p>Rank: {object.rank}</p>
               <p>

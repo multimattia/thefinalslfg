@@ -3,6 +3,7 @@ import Image from "next/image";
 import playstationIcon from "../svgs/playstation.svg";
 import xboxIcon from "../svgs/xbox.svg";
 import steamIcon from "../svgs/steam.svg";
+import CopyButton from "../../components/CopyButton";
 import { RANKS, REGIONS, PLATFORMS } from "@/lib/formschema";
 import { z } from "zod";
 
@@ -30,10 +31,18 @@ export const columns: ColumnDef<Listing>[] = [
   {
     accessorKey: "discord_name",
     header: "Discord Name",
+    cell: ({ row }) => {
+      let discordUsername: string = row.getValue("discord_name");
+      return <CopyButton copyString={discordUsername} />;
+    },
   },
   {
     accessorKey: "embark_id",
     header: "Embark ID",
+    cell: ({ row }) => {
+      let embarkId: string = row.getValue("embark_id");
+      return <CopyButton copyString={embarkId} />;
+    },
   },
   {
     accessorKey: "rank",
