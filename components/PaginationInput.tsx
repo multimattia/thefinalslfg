@@ -66,12 +66,6 @@ export default function PaginationInput({
       const recordsPerPage = result.data.recordsPerPage.toString();
       console.log(page);
       console.log(recordsPerPage);
-      router.push(
-        pathname +
-          "?" +
-          createQueryString("pagination", recordsPerPage) +
-          createQueryString("page", page)
-      );
     }
 
     reset();
@@ -85,7 +79,7 @@ export default function PaginationInput({
           name="page"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Page Number</FormLabel>
+              <FormLabel className="text-white">Page Number</FormLabel>
               <FormControl>
                 <Input placeholder="1" {...field} />
               </FormControl>
@@ -98,7 +92,7 @@ export default function PaginationInput({
           name="recordsPerPage"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Records per page</FormLabel>
+              <FormLabel className="text-white">Records per page</FormLabel>
               <FormControl>
                 <Input placeholder="20" {...field} />
               </FormControl>

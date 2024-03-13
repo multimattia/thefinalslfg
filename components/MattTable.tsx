@@ -9,8 +9,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { useSearchParams } from "next/navigation";
-
 import { useState } from "react";
 
 import {
@@ -53,24 +51,20 @@ export default function MattTable<TData, TValue>({
   });
 
   return (
-    <div className="min-h-fit min-w-full rounded-md border">
-      <div className="mx-5 flex items-center py-4">
-        <Input
-          placeholder="Search..."
-          value={(globalFilter as string) ?? ""}
-          onChange={(event) => {
-            table.setGlobalFilter(event.target.value);
-          }}
-          className="max-w-sm"
-        />
-      </div>
-      <Table>
-        <TableHeader>
+    <div className=" min-h-fit rounded-lg border-none">
+      <Table className="w-[1110px] min-w-full rounded-lg border-none">
+        <TableHeader className="hover:bg-red border-none bg-transparent">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow
+              key={headerGroup.id}
+              className="hover:bg-red rounded-lg border-none font-heavy"
+            >
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className="rounded-lg text-lg tracking-tight text-white"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -83,23 +77,30 @@ export default function MattTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="rounded-lg border-none border-l-slate-700 bg-modal">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                className="gap-2 rounded-lg border-b-[#636363] text-base text-white hover:bg-[#a99494]"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className="rounded-lg border-l-slate-700 text-white"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+            <TableRow className="rounded-lg hover:bg-transparent">
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center text-white"
+              >
                 No results.
               </TableCell>
             </TableRow>

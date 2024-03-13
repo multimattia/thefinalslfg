@@ -1,10 +1,12 @@
 import "./globals.css";
 import { Poppins, Saira } from "next/font/google";
+import logo from "./svgs/logo.svg";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "../lib/utils";
 import DiscordAuth from "@/components/DiscordAuth";
-import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 
 const saira = Saira({
@@ -16,7 +18,7 @@ const saira = Saira({
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
-  weight: "600",
+  weight: ["600", "800", "700"],
   variable: "--font-poppins",
 });
 
@@ -42,27 +44,31 @@ export default function RootLayout({
         `font-sans antialiased ${saira.variable} ${poppins.variable}`
       )}
     >
-      <body className="bg-background text-foreground">
+      <body className="bg-background bg-radial-gradient from-[#8999AC] to-[#5E6675] text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
           <main className="flex min-h-screen flex-col items-center">
             <div className="flex w-full flex-1 flex-col items-center gap-20">
-              <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
-                <div className="flex w-full max-w-4xl items-center justify-between p-3 text-sm">
-                  <Link href="/" className="font-heavy text-2xl">
-                    THE FINALS LFG
+              <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10 bg-black">
+                <div className="flex w-full max-w-screen-xl  items-center justify-between p-3 text-sm">
+                  <Link
+                    href="/"
+                    className="flex flex-row gap-4 font-heavy text-4xl font-extrabold tracking-tight text-white"
+                  >
+                    <Image src={logo} alt="logo" width={58} height={35} />
+                    LFG
                   </Link>
-                  <Link href="/matt" className="font-sans ">
+                  {/* <Link href="/matt" className="font-sans ">
                     Matt's form
                   </Link>
                   <Link href="/danny" className="font-sans ">
                     danny's page
-                  </Link>
-                  <ModeToggle />
+                  </Link> */}
+                  {/* <ModeToggle /> */}
                   <DiscordAuth />
                 </div>
               </nav>
