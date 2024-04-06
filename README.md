@@ -11,5 +11,5 @@
 
 Two pages, one with a table component (MattTable), and one with a form component (MattForm). Both pages are React Server Components, but the table and form components are client components (`use client`). Table uses Tanstack Table with shadcn. Form uses React Hook Forms with shadcn. The filter component state is managed with Next.js' useSearchParams hook so that state can be hoisted across server and client components. For those who know better, please file an issue if this isn't the way to go!
 
-Adding new records is handled by server actions -- currently not working, see [#58](/../../issues/8)
+Adding new records is handled by server actions -- currently not working, see [#58](/../../issues/58)
 
