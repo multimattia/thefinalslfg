@@ -29,6 +29,8 @@ export async function addListing(data: Inputs) {
         rank: data.rank,
         platforms: data.platform,
         region: data.region,
+        class: data.class,
+        notes: data.notes,
         user_id: user?.id,
       });
       console.log(error);
