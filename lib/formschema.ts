@@ -47,9 +47,16 @@ export const FormDataSchema = z.object({
     .max(30, {
       message: "Username cannot be more than 30 characters.",
     }),
+  notes: z
+    .string()
+    .min(2, {
+      message: "Note must be at least 2 characters.",
+    })
+    .optional(),
   rank: z.enum(RANKS),
   region: z.enum(REGIONS),
   platform: z.enum(PLATFORMS).array(),
+  class: z.enum(CLASSES).array(),
 });
 
 export const MainSchema = z.object({

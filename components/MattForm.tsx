@@ -12,6 +12,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -26,6 +27,7 @@ import { z } from "zod";
 import {
   RANKS,
   REGIONS,
+  CLASSES,
   PLATFORMS,
   FormDataSchema,
   multiSelectify,
@@ -42,6 +44,7 @@ export default function ProfileForm(userData: {
       embarkUsername: "",
       discordUsername: userData.discordName,
       platform: [PLATFORMS[0]], // Must have default value or multiselect component will break :(
+      class: [CLASSES[0]], // Must have default value or multiselect component will break :(
     },
   });
 
@@ -70,11 +73,11 @@ export default function ProfileForm(userData: {
     reset();
   };
 
-  return (
+  return userData.discordName ? (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(processForm)}
-        className="bg-modal space-y-4 rounded-lg p-5"
+        className="space-y-4 rounded-lg bg-modal p-5"
       >
         <h1 className="font-heavy text-6xl font-extrabold tracking-tighter text-white">
           SUBMIT A POST
@@ -109,8 +112,8 @@ export default function ProfileForm(userData: {
                 <Input placeholder="TheFinals" {...field} />
               </FormControl>
               <FormDescription className="text-slate-300">
-                This is your Discord username. If you're signed in, we've
-                prefilled this for you!
+                This is your Discord username. We've prefilled this from your
+                current discord username, but feel free to change it!
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -182,8 +185,49 @@ export default function ProfileForm(userData: {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="class"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-lg text-white">
+                Select Classes
+              </FormLabel>
+              <MultiSelect
+                selected={field.value}
+                options={multiSelectify([...CLASSES])}
+                {...field}
+                className="sm:w-[510px]"
+              />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="notes"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-lg text-white">Notes</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Anything else you would like to share?"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
+  ) : (
+    <div className="max-w-l flex flex-row items-center justify-between rounded-lg bg-modal px-9 py-4">
+      <p className="text-lg text-white">
+        You must be signed in to submit a form.
+      </p>
+    </div>
   );
 }
